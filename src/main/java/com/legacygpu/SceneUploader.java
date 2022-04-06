@@ -379,7 +379,7 @@ class SceneUploader
 
     public int pushModel(Model model, GpuIntBuffer vertexBuffer, GpuFloatBuffer uvBuffer)
     {
-        final int triangleCount = Math.min(model.getFaceCount(), GpuPlugin.MAX_TRIANGLE);
+        final int triangleCount = Math.min(model.getFaceCount(), LegacyGpuPlugin.MAX_TRIANGLE);
 
         vertexBuffer.ensureCapacity(triangleCount * 12);
         uvBuffer.ensureCapacity(triangleCount * 12);

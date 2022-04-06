@@ -66,8 +66,8 @@ class OpenCLManager
     private static final String KERNEL_NAME_LARGE = "computeLarge";
 
     private static final int MIN_WORK_GROUP_SIZE = 256;
-    private static final int SMALL_SIZE = GpuPlugin.SMALL_TRIANGLE_COUNT;
-    private static final int LARGE_SIZE = GpuPlugin.MAX_TRIANGLE;
+    private static final int SMALL_SIZE = LegacyGpuPlugin.SMALL_TRIANGLE_COUNT;
+    private static final int LARGE_SIZE = LegacyGpuPlugin.MAX_TRIANGLE;
     //  struct shared_data {
     //      int totalNum[12];
     //      int totalDistance[12];
