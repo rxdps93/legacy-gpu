@@ -30,7 +30,6 @@ import com.jogamp.nativewindow.AbstractGraphicsConfiguration;
 import com.jogamp.nativewindow.NativeWindowFactory;
 import com.jogamp.nativewindow.awt.AWTGraphicsConfiguration;
 import com.jogamp.nativewindow.awt.JAWTWindow;
-import com.jogamp.opengl.DebugGL4;
 import com.jogamp.opengl.GL;
 import static com.jogamp.opengl.GL.GL_ARRAY_BUFFER;
 import static com.jogamp.opengl.GL.GL_DYNAMIC_DRAW;
@@ -119,7 +118,7 @@ import static org.jocl.CL.clCreateFromGLBuffer;
 		loadInSafeMode = false
 )
 @Slf4j
-public class GpuPlugin extends Plugin implements DrawCallbacks
+public class LegacyGpuPlugin extends Plugin implements DrawCallbacks
 {
 	// This is the maximum number of triangles the compute shaders support
 	static final int MAX_TRIANGLE = 4096;
@@ -139,7 +138,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	private ClientThread clientThread;
 
 	@Inject
-	private GpuPluginConfig config;
+	private LegacyGpuPluginConfig config;
 
 	@Inject
 	private TextureManager textureManager;
@@ -425,7 +424,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 					{
 						try
 						{
-							gl = new DebugGL4(gl);
+//							gl = new DebugGL4(gl);
 						}
 						catch (NoClassDefFoundError ex)
 						{
@@ -589,15 +588,15 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	}
 
 	@Provides
-	GpuPluginConfig provideConfig(ConfigManager configManager)
+	LegacyGpuPluginConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(GpuPluginConfig.class);
+		return configManager.getConfig(LegacyGpuPluginConfig.class);
 	}
 
 	@Subscribe
 	public void onConfigChanged(ConfigChanged configChanged)
 	{
-		if (configChanged.getGroup().equals(GpuPluginConfig.GROUP))
+		if (configChanged.getGroup().equals(LegacyGpuPluginConfig.GROUP))
 		{
 			if (configChanged.getKey().equals("unlockFps")
 					|| configChanged.getKey().equals("vsyncMode")
@@ -615,9 +614,9 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		client.setUnlockedFps(unlockFps);
 
 		// Without unlocked fps, the client manages sync on its 20ms timer
-		GpuPluginConfig.SyncMode syncMode = unlockFps
+		LegacyGpuPluginConfig.SyncMode syncMode = unlockFps
 				? this.config.syncMode()
-				: GpuPluginConfig.SyncMode.OFF;
+				: LegacyGpuPluginConfig.SyncMode.OFF;
 
 		switch (syncMode)
 		{
@@ -648,7 +647,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			}
 			return null;
 		});
-		template.addInclude(GpuPlugin.class);
+		template.addInclude(LegacyGpuPlugin.class);
 
 		glProgram = PROGRAM.compile(gl, template);
 		glUiProgram = UI_PROGRAM.compile(gl, template);
