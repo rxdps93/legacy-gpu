@@ -24,7 +24,7 @@
  */
 package com.legacygpu;
 
-import com.jogamp.opengl.GL4;
+import com.jogamp.opengl.GL3;
 import java.nio.ByteBuffer;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ class TextureManager
 {
     private static final int TEXTURE_SIZE = 128;
 
-    int initTextureArray(TextureProvider textureProvider, GL4 gl)
+    int initTextureArray(TextureProvider textureProvider, GL3 gl)
     {
         if (!allTexturesLoaded(textureProvider))
         {
@@ -71,7 +71,7 @@ class TextureManager
         return textureArrayId;
     }
 
-    void setAnisotropicFilteringLevel(int textureArrayId, int level, GL4 gl)
+    void setAnisotropicFilteringLevel(int textureArrayId, int level, GL3 gl)
     {
         gl.glBindTexture(gl.GL_TEXTURE_2D_ARRAY, textureArrayId);
 
@@ -99,7 +99,7 @@ class TextureManager
         }
     }
 
-    void freeTextureArray(GL4 gl, int textureArrayId)
+    void freeTextureArray(GL3 gl, int textureArrayId)
     {
         GLUtil.glDeleteTexture(gl, textureArrayId);
     }
@@ -134,7 +134,7 @@ class TextureManager
         return true;
     }
 
-    private void updateTextures(TextureProvider textureProvider, GL4 gl, int textureArrayId)
+    private void updateTextures(TextureProvider textureProvider, GL3 gl, int textureArrayId)
     {
         Texture[] textures = textureProvider.getTextures();
 

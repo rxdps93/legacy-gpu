@@ -26,7 +26,7 @@
 package com.legacygpu;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.jogamp.opengl.GL4;
+import com.jogamp.opengl.GL3;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -55,7 +55,7 @@ public class Shader
         return this;
     }
 
-    public int compile(GL4 gl, Template template) throws ShaderException
+    public int compile(GL3 gl, Template template) throws ShaderException
     {
         int program = gl.glCreateProgram();
         int[] shaders = new int[units.size()];

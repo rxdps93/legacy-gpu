@@ -26,7 +26,7 @@ package com.legacygpu;
 
 import com.google.common.base.Charsets;
 import com.jogamp.nativewindow.NativeSurface;
-import com.jogamp.opengl.GL4;
+import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLContext;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -94,7 +94,7 @@ class OpenCLManager
     private cl_kernel kernelSmall;
     private cl_kernel kernelLarge;
 
-    void init(GL4 gl)
+    void init(GL3 gl)
     {
         CL.setExceptionsEnabled(true);
 
@@ -273,7 +273,7 @@ class OpenCLManager
         log.debug("Selected cl_device_id {}", device);
     }
 
-    private void initContext(GL4 gl)
+    private void initContext(GL3 gl)
     {
         // set computation platform
         cl_context_properties contextProps = new cl_context_properties();
@@ -311,7 +311,7 @@ class OpenCLManager
         log.debug("Created compute context {}", context);
     }
 
-    private void initMacOS(GL4 gl)
+    private void initMacOS(GL3 gl)
     {
         // get sharegroup from gl context
         GLContext glContext = gl.getContext();
